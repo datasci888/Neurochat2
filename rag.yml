@@ -14,15 +14,16 @@ services:
 
   rag_api:
     image: ghcr.io/danny-avila/librechat-rag-api-dev:latest
-    entrypoint: ["/bin/sh", "-c", "echo DB_USER=$DB_USER && echo POSTGRES_USER=$POSTGRES_USER && echo DATABASE_URL=$DATABASE_URL && sleep 20 && exec python3 main.py"]
+    entrypoint: ["/bin/sh", "-c", "echo DB_USER=$DB_USER && echo POSTGRES_USER=$POSTGRES_USER && echo DATABASE_URL=$DATABASE_URL && sleep 20 && exec \"$@\"", "--"]
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
     environment:
       - DB_HOST=${PGHOST}
       - DB_PORT=${PGPORT}
-      - DB_USER=${PGUSER}
+      - DB_USER=postgres
       - DB_PASSWORD=${PGPASSWORD}
       - DB_NAME=${PGDATABASE}
       - DATABASE_URL=${DATABASE_URL}
-      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${PGPASSWORD}
       - POSTGRES_DB=${PGDATABASE}
     ports:
