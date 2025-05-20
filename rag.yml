@@ -14,6 +14,7 @@ services:
 
   rag_api:
     image: ghcr.io/danny-avila/librechat-rag-api-dev:latest
+    entrypoint: ["/bin/sh", "-c", "echo DB_USER=$DB_USER && echo POSTGRES_USER=$POSTGRES_USER && echo DATABASE_URL=$DATABASE_URL && sleep 20 && exec python3 main.py"]
     environment:
       - DB_HOST=${PGHOST}
       - DB_PORT=${PGPORT}
