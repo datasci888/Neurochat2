@@ -60,7 +60,15 @@ services:
     container_name: rag_api
     image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
     environment:
-      - DB_HOST=vectordb
+      - DB_HOST=${PGHOST}
+      - DB_PORT=${PGPORT}
+      - DB_USER=${PGUSER}
+      - DB_PASSWORD=${PGPASSWORD}
+      - DB_NAME=${PGDATABASE}
+      - DATABASE_URL=${DATABASE_URL}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=${PGDATABASE}
       - RAG_PORT=${RAG_PORT:-8000}
     restart: always
     depends_on:

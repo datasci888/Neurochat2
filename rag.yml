@@ -15,11 +15,15 @@ services:
   rag_api:
     image: ghcr.io/danny-avila/librechat-rag-api-dev:latest
     environment:
-      - DB_HOST=vectordb
-      - DB_PORT=5432
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_HOST=${PGHOST}
+      - DB_PORT=${PGPORT}
+      - DB_USER=${PGUSER}
+      - DB_PASSWORD=${PGPASSWORD}
+      - DB_NAME=${PGDATABASE}
+      - DATABASE_URL=${DATABASE_URL}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=${PGDATABASE}
     ports:
       - "${RAG_PORT}:${RAG_PORT}"
     depends_on:
